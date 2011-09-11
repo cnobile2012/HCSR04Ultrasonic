@@ -1,0 +1,15 @@
+This is a rework of the library created by ITead studio. Alex, Apr 20, 2010.
+iteadstudio.com
+
+The API has changed so the name of the package has changed from Ultrasonic to
+HCSR04Ultrasonic.
+
+1) I have changed the method names to a more conventional naming standard.
+2) The global defines are now public static const member objects on the class.
+   This takes them out of the global name space so the potential of collisions
+   with other libraries should not happen.
+
+In general look at the code and examples to understand the changes.
+
+mailto://carl.nobile@gmail.com
+
