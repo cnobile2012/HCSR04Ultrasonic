@@ -1,19 +1,35 @@
-#include "Ultrasonic.h"
-#include <LiquidCrystal.h>
-LiquidCrystal lcd(11, 10, 9, 4, 5, 6, 7);
-Ultrasonic ultrasonic(12, 13);
+/*
+ * HCSR04Ultrasonic/examples/UltrasonicDemo/UltrasonicDemo.pde
+ *
+ * SVN Keywords
+ * ----------------------------------
+ * $Author$
+ * $Date$
+ * $Revision$
+ * ----------------------------------
+ */
+
+#include <Ultrasonic.h>
+
+#define TRIGGER_PIN  12
+#define ECHO_PIN     13
+
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 
 void setup()
   {
-  lcd.begin(16, 2);
-  lcd.print("testing...");
+  Serial.begin(9600);
   }
 
 void loop()
   {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(ultrasonic.ranging(Ultrasonic::CM));
-  lcd.print("cm");    
-  delay(100);
+  long cmMsec = 0, inMsec = 0;
+
+  cmMsec = ultrasonic.ranging(Ultrasonic::CM);
+  inMsec = ultrasonic.ranging(Ultrasonic::IN);
+  Serial.print("CM: ");
+  Serial.print(cmMsec);
+  Serial.print(", IN: ");
+  Serial.println(inMsec);
+  delay(1000);
   }
