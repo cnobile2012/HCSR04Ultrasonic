@@ -35,6 +35,9 @@ void setup()
    * the same value.
    *
    * Example: ultrasonic.sampleCreate(3, 20, 10, 3) is valid.
+   *
+   * Note: The minimum size for any buffer is 2. Using less than 2 will waist
+   *       resources and the buffer will be ignored.
    */
   if(!ultrasonic.sampleCreate(NUMBER_BUFFERS, BUFFER_SIZE, BUFFER_SIZE))
     {
