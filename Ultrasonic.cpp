@@ -158,7 +158,7 @@ void Ultrasonic::_freeBuffers()
             free(buf->pBegin)
             }
 
-        free(pBuffers)
+        free(_pBuffers)
         }
     }
 
