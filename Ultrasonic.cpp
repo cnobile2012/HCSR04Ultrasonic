@@ -77,7 +77,7 @@ bool Ultrasonic::sampleCreate(size_t numBufs, ...)
         va_end(ap);
         }
 
-    if(!result) _freeBuffers()
+    if(!result) _freeBuffers();
     return result;
     }
 
