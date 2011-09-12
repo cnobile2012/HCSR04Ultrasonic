@@ -42,6 +42,7 @@ long Ultrasonic::convert(long microsec, int metric)
     }
 
 #ifdef COMPILE_STD_DEV
+
 bool Ultrasonic::sampleCreate(size_t numBufs, ...)
     {
     bool result = false;
@@ -155,7 +156,7 @@ void Ultrasonic::_freeBuffers()
         for(size_t i = 0; i < _numBufs; i++)
             {
             buf = &_pBuffers[i];
-            free(buf->pBegin)
+            free(buf->pBegin);
             }
 
         free(_pBuffers);
