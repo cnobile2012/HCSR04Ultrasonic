@@ -54,6 +54,7 @@ class Ultrasonic
     size_t _numBufs;
     BufCtl *_pBuffers;
     void _sampleUpdate(BufCtl *buf, float msec);
+    void _freeBuffers();
 #endif // COMPILE_STD_DEV
     };
 

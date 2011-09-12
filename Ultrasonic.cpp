@@ -51,11 +51,13 @@ bool Ultrasonic::sampleCreate(size_t numBufs, ...)
     if((_pBuffers = (BufCtl *) calloc(numBufs, sizeof(BufCtl))) != NULL)
         {
         va_start(ap, numBufs);
+        BufCtl *buf;
+        size_t smpSize;
 
         for(size_t i = 0; i < _numBufs; i++)
             {
-            BufCtl *buf = &_pBuffers[i];
-            size_t smpSize = va_arg(ap, size_t);
+            buf = &_pBuffers[i];
+            smpSize = va_arg(ap, size_t);
 
             if((buf->pBegin = (float *) calloc(smpSize, sizeof(float))) != NULL)
                 {
@@ -74,6 +76,7 @@ bool Ultrasonic::sampleCreate(size_t numBufs, ...)
         va_end(ap);
         }
 
+    if(!result) _freeBuffers()
     return result;
     }
 
@@ -81,9 +84,11 @@ void Ultrasonic::sampleClear()
     {
     if(_pBuffers)
         {
+        BufCtl *buf;
+
         for(size_t i = 0; i < _numBufs; i++)
             {
-            BufCtl *buf = &_pBuffers[i];
+            buf = &_pBuffers[i];
             memset(buf, '\0', sizeof(float) * buf->length);
             buf->pIndex = buf->pBegin;
             buf->filled = false;
@@ -140,4 +145,21 @@ void Ultrasonic::_sampleUpdate(BufCtl *buf, float msec)
 
     *(buf->pIndex++) = msec;
     }
+
+void Ultrasonic::_freeBuffers()
+    {
+    if(_pBuffers)
+        {
+        BufCtl *buf;
+
+        for(size_t i = 0; i < _numBufs; i++)
+            {
+            buf = &_pBuffers[i];
+            free(buf->pBegin)
+            }
+
+        free(pBuffers)
+        }
+    }
+
 #endif // COMPILE_STD_DEV
