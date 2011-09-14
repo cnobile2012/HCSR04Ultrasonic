@@ -23,6 +23,10 @@
 Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 bool disableSD = false;
 
+// Only run 50 time so we can reburn the code easily.
+#define CYCLES         50
+size_t count = 0;
+
 
 void setup()
   {
@@ -55,25 +59,30 @@ void loop()
   cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
   inMsec = ultrasonic.convert(microsec, Ultrasonic::IN);
 
-  if(disableSD)
+  if(count < CYCLES)
     {
-    Serial.print("CM: ");
-    Serial.print(cmMsec);
-    Serial.print(", IN: ");
-    Serial.println(inMsec);
-    }
-  else
-    {
-    cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_01);
-    inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_02);
-    Serial.print("CM: ");
-    Serial.print(cmMsec);
-    Serial.print(", SD: ");
-    Serial.print(cmStdDev, 2);
-    Serial.print(", IN: ");
-    Serial.print(inMsec);
-    Serial.print(", SD: ");
-    Serial.println(inStdDev, 2);
+    if(disableSD)
+      {
+      Serial.print("CM: ");
+      Serial.print(cmMsec);
+      Serial.print(", IN: ");
+      Serial.println(inMsec);
+      }
+    else
+      {
+      cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_01);
+      inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_02);
+      Serial.print("CM: ");
+      Serial.print(cmMsec);
+      Serial.print(", SD: ");
+      Serial.print(cmStdDev, 2);
+      Serial.print(", IN: ");
+      Serial.print(inMsec);
+      Serial.print(", SD: ");
+      Serial.println(inStdDev, 2);
+      }
+
+    count++;
     }
 
   delay(2000);
