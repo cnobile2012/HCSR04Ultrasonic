@@ -14,11 +14,12 @@
 #define TRIGGER_PIN    12
 #define ECHO_PIN       13
 
-#define NUMBER_BUFFERS 2
+#define NUMBER_BUFFERS 3
 #define BUFFER_SIZE    3
 
 #define BUFFER_01      0
 #define BUFFER_02      1
+#define BUFFER_03      2
 
 Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 bool disableSD = false;
@@ -43,7 +44,8 @@ void setup()
    * Note: The minimum size for any buffer is 2. Using less than 2 will waist
    *       resources and the buffer will be ignored.
    */
-  if(!ultrasonic.sampleCreate(NUMBER_BUFFERS, BUFFER_SIZE, BUFFER_SIZE))
+  if(!ultrasonic.sampleCreate(NUMBER_BUFFERS, BUFFER_SIZE, BUFFER_SIZE,
+      BUFFER_SIZE))
     {
     disableSD = true;
     Serial.println("Could not allocate memory.");
@@ -53,7 +55,7 @@ void setup()
 void loop()
   {
   long cmMsec = 0, inMsec = 0;
-  float cmStdDev, inStdDev;
+  float msStdDev, cmStdDev, inStdDev;
   long microsec = ultrasonic.timing();
 
   cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
@@ -70,10 +72,15 @@ void loop()
       }
     else
       {
-      cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_01);
-      inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_02);
+      msStdDev = ultrasonic.unbiasedStdDev(microsec, BUFFER_01);
+      cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_02);
+      inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_03);
       Serial.print(count + 1);
-      Serial.print(") CM: ");
+      Serial.print(") MS: ");
+      Serial.print(microsec);
+      Serial.print(", SD: ");
+      Serial.print(msStdDev);
+      Serial.print(", CM: ");
       Serial.print(cmMsec);
       Serial.print(", SD: ");
       Serial.print(cmStdDev, 2);
