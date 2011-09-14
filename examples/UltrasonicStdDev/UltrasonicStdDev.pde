@@ -72,6 +72,8 @@ void loop()
       {
       cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_01);
       inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_02);
+      Serial.print(count + 1);
+      Serial.print(") CM: ");
       Serial.print("CM: ");
       Serial.print(cmMsec);
       Serial.print(", SD: ");
