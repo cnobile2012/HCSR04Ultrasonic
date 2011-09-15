@@ -1,8 +1,9 @@
 /*
  * Ultrasonic.cpp - Library for HC-SR04 Ultrasonic Ranging Module.library
  *
- * Created by ITead studio. Apr 20, 2010.
- * iteadstudio.com
+ * With ideas from:
+ *   Created by ITead studio. Apr 20, 2010.
+ *   iteadstudio.com
  *
  * SVN Keywords
  * ----------------------------------
@@ -42,7 +43,6 @@ long Ultrasonic::convert(long microsec, int metric)
     }
 
 #ifdef COMPILE_STD_DEV
-
 bool Ultrasonic::sampleCreate(size_t numBufs, ...)
     {
     bool result = false;
@@ -162,5 +162,4 @@ void Ultrasonic::_freeBuffers()
         free(_pBuffers);
         }
     }
-
 #endif // COMPILE_STD_DEV
