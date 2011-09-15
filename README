@@ -1,15 +1,17 @@
-This is a rework of the library created by ITead studio. Alex, Apr 20, 2010.
-iteadstudio.com
+This library was created to work with the HC-SR04 Ultrasonic sensor.
 
-The API has changed so the name of the package has changed from Ultrasonic to
-HCSR04Ultrasonic.
+It features timing, metric conversion (centimeter and inch) and standard
+deviation methods. Some ideas were gleaned from a library created by ITead
+studio at iteadstudio.com.
 
-1) I have changed the method names to a more conventional naming standard.
-2) The global defines are now public static const member objects on the class.
-   This takes them out of the global name space so the potential of collisions
-   with other libraries should not happen.
+Look at the code and examples to understand how the library works.
 
-In general look at the code and examples to understand the changes.
+The standerd deviation code can be removed from the compilation resulting in
+a significant savings of resources. To do this comment the
+
+#define COMPILE_STD_DEV
+
+definition in the header file.
+
 
 mailto://carl.nobile@gmail.com
-
