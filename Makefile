@@ -21,7 +21,7 @@ DISTNAME        = ${PACKAGE_DIR}-$(VERSION)
 #--------------------------------------------------------------
 all	: clean
 	(cd ..; tar -czvf $(DISTNAME).tar.gz --exclude .svn $(PACKAGE_DIR))
-	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR) --exclude /\*.svn* /.svn/)
+	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR)/* --exclude \*/.svn\*)
 
 #--------------------------------------------------------------
 clean	:
