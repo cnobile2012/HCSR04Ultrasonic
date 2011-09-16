@@ -1,9 +1,9 @@
 #
 # Makefile for the HCSR04Ultrasonic library.
 #
-# $Author: $
-# $Date: $
-# $Revision: $
+# $Author$
+# $Date$
+# $Revision$
 #
 
 # Local directory locations.
