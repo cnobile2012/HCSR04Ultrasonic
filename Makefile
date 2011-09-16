@@ -14,14 +14,14 @@ TODAY		= $(shell date +"%Y-%m-%d")
 # Current version
 MAJORVERSION    = 1
 MINORVERSION    = 0
-PATCHLEVEL      = 0
+PATCHLEVEL      = 1
 VERSION         = ${MAJORVERSION}.${MINORVERSION}.${PATCHLEVEL}
 
 DISTNAME        = ${PACKAGE_DIR}-$(VERSION)
 SVN_PATH	= /exports/nas-storage/cnobile/repos/svnroot/arduino-svn/HCSR04Ultrasonic
 
 #--------------------------------------------------------------
-all	: clean
+all	: clobber
 	(cd ..; tar -czvf $(DISTNAME).tar.gz --exclude .svn $(PACKAGE_DIR))
 	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR)/* --exclude \*/.svn\*)
 
@@ -33,3 +33,6 @@ svn-tag :
 #--------------------------------------------------------------
 clean	:
 	$(shell $(PACKAGE_PREFIX)/cleanDirs.sh clean)
+
+clobber	: clean
+	@(cd ..; rm -rf $(DISTNAME).tar.gz $(DISTNAME).zip)
