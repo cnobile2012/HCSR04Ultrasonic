@@ -24,6 +24,8 @@ Ultrasonic::Ultrasonic(int tp, int ep)
     pinMode(ep, INPUT);
     _trigPin = tp;
     _echoPin = ep;
+    _cmDivisor = 27.61837989429403516341;  // 46.355 cm
+    _inDivisor = 70.15068493150684931507;  // 18.25 in
     }
 
 long Ultrasonic::timing()
@@ -36,10 +38,18 @@ long Ultrasonic::timing()
     return pulseIn(_echoPin, HIGH);
     }
 
-long Ultrasonic::convert(long microsec, int metric)
+float Ultrasonic::convert(long microsec, int metric)
     {
-    if(metric) return microsec / 29 / 2;  // CM
-    else return microsec / 74 / 2;  // IN
+    // microsec / 29 / 2; (6.25 in == 26.90288713910761154856)
+    if(metric) return microsec / _cmDivisor / 2.0;  // CM
+    // microsec / 74 / 2; (15.875 cm == 68.33333333333333333333)
+    else return microsec / _inDivisor / 2.0;  // IN
+    }
+
+void Ultrasonic::setDivisor(float value, int metric)
+    {
+    if(metric) _cmDivisor = value;
+    else _inDivisor = value;
     }
 
 #ifdef COMPILE_STD_DEV
@@ -97,7 +107,7 @@ void Ultrasonic::sampleClear()
         }
     }
 
-float Ultrasonic::unbiasedStdDev(long value, size_t bufNum)
+float Ultrasonic::unbiasedStdDev(float value, size_t bufNum)
     {
     float result = 0.0;
 

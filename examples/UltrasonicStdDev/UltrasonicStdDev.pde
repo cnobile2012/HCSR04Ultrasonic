@@ -54,7 +54,7 @@ void setup()
 
 void loop()
   {
-  long cmMsec = 0, inMsec = 0;
+  float cmMsec, inMsec;
   float msStdDev, cmStdDev, inStdDev;
   long microsec = ultrasonic.timing();
 
@@ -72,7 +72,7 @@ void loop()
       }
     else
       {
-      msStdDev = ultrasonic.unbiasedStdDev(microsec, BUFFER_01);
+      msStdDev = ultrasonic.unbiasedStdDev((float) microsec, BUFFER_01);
       cmStdDev = ultrasonic.unbiasedStdDev(cmMsec, BUFFER_02);
       inStdDev = ultrasonic.unbiasedStdDev(inMsec, BUFFER_03);
       Serial.print(count + 1);

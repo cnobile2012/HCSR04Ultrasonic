@@ -23,11 +23,14 @@ void setup()
 
 void loop()
   {
-  long cmMsec = 0, inMsec = 0;
+  float cmMsec, inMsec;
+  long microsec = ultrasonic.timing();
 
-  cmMsec = ultrasonic.ranging(Ultrasonic::CM);
-  inMsec = ultrasonic.ranging(Ultrasonic::IN);
-  Serial.print("CM: ");
+  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
+  inMsec = ultrasonic.convert(microsec, Ultrasonic::IN);
+  Serial.print("MS: ");
+  Serial.print(microsec);
+  Serial.print(", CM: ");
   Serial.print(cmMsec);
   Serial.print(", IN: ");
   Serial.println(inMsec);

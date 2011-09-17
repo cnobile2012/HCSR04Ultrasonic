@@ -36,19 +36,22 @@ class Ultrasonic
     public:
     Ultrasonic(int tp, int ep);
     long timing();
-    long convert(long microsec, int metric);
+    float convert(long microsec, int metric);
+    void setDivisor(float value, int metric);
     static const int IN = 0;
     static const int CM = 1;
 
 #ifdef COMPILE_STD_DEV
     bool sampleCreate(size_t size, ...);
     void sampleClear();
-    float unbiasedStdDev(long msec, size_t bufNum);
+    float unbiasedStdDev(float value, size_t bufNum);
 #endif // COMPILE_STD_DEV
 
     private:
     int _trigPin;
     int _echoPin;
+    float _cmDivisor;
+    float _inDivisor;
 
 #ifdef COMPILE_STD_DEV
     size_t _numBufs;
