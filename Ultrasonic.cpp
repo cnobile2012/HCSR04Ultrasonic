@@ -40,9 +40,9 @@ long Ultrasonic::timing()
 
 float Ultrasonic::convert(long microsec, int metric)
     {
-    // microsec / 29 / 2; (6.25 in == 26.90288713910761154856)
+    // microsec / 29 / 2; 15.875 cm == 26.90288713910761154856)
     if(metric) return microsec / _cmDivisor / 2.0;  // CM
-    // microsec / 74 / 2; (15.875 cm == 68.33333333333333333333)
+    // microsec / 74 / 2; (6.25 in == 68.33333333333333333333)
     else return microsec / _inDivisor / 2.0;  // IN
     }
 
