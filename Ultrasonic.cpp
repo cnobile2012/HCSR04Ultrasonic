@@ -1,5 +1,5 @@
 /*
- * Ultrasonic.cpp - Library for HC-SR04 Ultrasonic Ranging Module.
+ * Ultrasonic.cpp - Library for HC-SR04 Ultrasonic Sensing Module.
  *
  * With ideas from:
  *   Created by ITead studio. Apr 20, 2010.

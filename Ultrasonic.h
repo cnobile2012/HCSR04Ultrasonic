@@ -1,5 +1,5 @@
 /*
- * Ultrasonic.h - Library for HC-SR04 Ultrasonic Ranging Module.
+ * Ultrasonic.h - Library for HC-SR04 Ultrasonic Sensing Module.
  *
  * With ideas from:
  *   Created by ITead studio. Alex, Apr 20, 2010.
