@@ -17,7 +17,11 @@
 #define ULTRASONIC_H
 
 #include <stddef.h>
-#include <WProgram.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include <Arduino.h>
+#else
+  #include <WProgram.h>
+#endif
 
 // Undefine COMPILE_STD_DEV if you don't want Standard Deviation.
 #define COMPILE_STD_DEV
