@@ -14,7 +14,7 @@ TODAY		= $(shell date +"%Y-%m-%d")
 # Current version
 MAJORVERSION    = 1
 MINORVERSION    = 1
-PATCHLEVEL      = 1
+PATCHLEVEL      = 2
 VERSION         = ${MAJORVERSION}.${MINORVERSION}.${PATCHLEVEL}
 
 DISTNAME        = ${PACKAGE_DIR}-$(VERSION)
