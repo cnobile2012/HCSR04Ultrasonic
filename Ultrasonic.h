@@ -11,12 +11,17 @@
  * $Date$
  * $Revision$
  * ----------------------------------
+ *
+ * Thank you to Rowan Simms for pointing out the change in header name with
+ * Arduino version 1.0 and up.
+ *
  */
 
 #ifndef ULTRASONIC_H
 #define ULTRASONIC_H
 
 #include <stddef.h>
+
 #if defined(ARDUINO) && ARDUINO >= 100
   #include <Arduino.h>
 #else
