@@ -9,7 +9,7 @@
 # Local directory locations.
 PACKAGE_PREFIX	= $(shell pwd)
 PACKAGE_DIR	= $(shell echo $${PWD\#\#*/})
-TODAY		= $(shell date +"%Y-%m-%d")
+TODAY		= $(shell date +"%Y-%m-%d_%H%M")
 
 # Current version
 MAJORVERSION    = 1
@@ -18,7 +18,8 @@ PATCHLEVEL      = 2
 VERSION         = ${MAJORVERSION}.${MINORVERSION}.${PATCHLEVEL}
 
 DISTNAME        = ${PACKAGE_DIR}-$(VERSION)
-SVN_PATH	= /exports/nas-storage/cnobile/repos/svnroot/arduino-svn/HCSR04Ultrasonic
+SVN_PATH	= /exports/nas-storage/cnobile/repos/svnroot
+REPOSITORY	= arduino-svn/HCSR04Ultrasonic
 
 #--------------------------------------------------------------
 all	: clobber
@@ -26,8 +27,8 @@ all	: clobber
 	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR)/* --exclude \*/.svn\*)
 
 svn-tag :
-	svn copy svn+ssh://foundation${SVN_PATH}/trunk \
-          svn+ssh://foundation${SVN_PATH}/tags/tag-${VERSION}-${TODAY} \
+	svn copy svn+ssh://foundation${SVN_PATH}/${REPOSITORY}/trunk \
+          svn+ssh://foundation${SVN_PATH}/${REPOSITORY}/tags/tag-${VERSION}-${TODAY} \
           -m "Tag--release $(VERSION)."
 
 #--------------------------------------------------------------
