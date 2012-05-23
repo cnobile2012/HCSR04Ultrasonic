@@ -31,6 +31,9 @@
 // Undefine COMPILE_STD_DEV if you don't want Standard Deviation.
 #define COMPILE_STD_DEV
 
+// Hard-coded maximum distance in CM (manual for HC-SR04 says 500cm).
+#define MAX_CM_DISTANCE 500
+
 
 typedef struct bufferCtl
     {
@@ -43,6 +46,7 @@ typedef struct bufferCtl
 class Ultrasonic
     {
     public:
+    Ultrasonic(int tp, int ep, int md);
     Ultrasonic(int tp, int ep);
     long timing();
     float convert(long microsec, int metric);
@@ -59,6 +63,9 @@ class Ultrasonic
     private:
     int _trigPin;
     int _echoPin;
+    int _maxCMDistance;
+    int _maxINDistance;
+    unsigned int _pingTimeout;
     float _cmDivisor;
     float _inDivisor;
 

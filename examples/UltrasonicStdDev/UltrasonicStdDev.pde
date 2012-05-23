@@ -20,8 +20,16 @@
 #define BUFFER_01      0
 #define BUFFER_02      1
 #define BUFFER_03      2
+#define MAX_CM_DISTANCE	50
 
-Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
+/*
+ * There are two constructors both need to be passed arguments for the
+ * trigger pin and echo pin. One constructor has an additional pin for
+ * the maximum CM distance used to limit the max distance that will be
+ * detected.
+ */
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN, MAX_CM_DISTANCE);
+//Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 bool disableSD = false;
 
 // Only run 50 time so we can reburn the code easily.

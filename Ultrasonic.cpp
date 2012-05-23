@@ -38,6 +38,24 @@
 #include <Ultrasonic.h>
 
 
+Ultrasonic::Ultrasonic(int tp, int ep, int md)
+    {
+    pinMode(tp, OUTPUT);
+    pinMode(ep, INPUT);
+    _trigPin = tp;
+    _echoPin = ep;
+    _cmDivisor = 27.6233;
+    _inDivisor = 70.1633;
+    /* Don't allow a maximum distance longer than the sensor supports. */
+    _maxCMDistance = min(md, MAX_CM_DISTANCE);
+    _maxINDistance = _maxCMDistance * 0.3937; // CM to IN conversion
+    /* Why 68 and not _cmDivisor*2? There seems to be some processing overhead
+     * so a little extra is needed. 68 tests out to be correct at most
+     * distances.
+     */
+    _pingTimeout = _maxCMDistance * 68; 
+    }
+
 Ultrasonic::Ultrasonic(int tp, int ep)
     {
     pinMode(tp, OUTPUT);
@@ -46,6 +64,9 @@ Ultrasonic::Ultrasonic(int tp, int ep)
     _echoPin = ep;
     _cmDivisor = 27.6233;
     _inDivisor = 70.1633;
+    _maxCMDistance = MAX_CM_DISTANCE;
+    _maxINDistance = MAX_CM_DISTANCE * 0.3937;
+    _pingTimeout = _maxCMDistance * 68;
     }
 
 long Ultrasonic::timing()
@@ -55,15 +76,15 @@ long Ultrasonic::timing()
     digitalWrite(_trigPin, HIGH);
     delayMicroseconds(10);
     digitalWrite(_trigPin, LOW);
-    return pulseIn(_echoPin, HIGH);
+    return pulseIn(_echoPin, HIGH, _pingTimeout);
     }
 
 float Ultrasonic::convert(long microsec, int metric)
     {
     // microsec / 29 / 2;
-    if(metric) return microsec / _cmDivisor / 2.0;  // CM
+    if(metric) return min(microsec / _cmDivisor / 2.0, _maxCMDistance);  // CM
     // microsec / 74 / 2;
-    else return microsec / _inDivisor / 2.0;  // IN
+    else return min(microsec / _inDivisor / 2.0, _maxINDistance);  // IN
     }
 
 void Ultrasonic::setDivisor(float value, int metric)
