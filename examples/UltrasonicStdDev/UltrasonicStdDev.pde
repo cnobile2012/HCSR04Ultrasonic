@@ -11,28 +11,31 @@
 
 #include <Ultrasonic.h>
 
-#define TRIGGER_PIN    12
-#define ECHO_PIN       13
+#define TRIGGER_PIN     12
+#define ECHO_PIN        13
 
-#define NUMBER_BUFFERS 3
-#define BUFFER_SIZE    3
+#define NUMBER_BUFFERS  3
+#define BUFFER_SIZE     3
 
-#define BUFFER_01      0
-#define BUFFER_02      1
-#define BUFFER_03      2
-#define MAX_CM_DISTANCE	50
+#define BUFFER_01       0
+#define BUFFER_02       1
+#define BUFFER_03       2
+// The max distance to read.
+#define MAX_CM_DISTANCE	110
+// Set divisor, used to correct the non-linear result from the sensor.
+#define MULTIPLIER      1.03826
+// Set the temperature in Celsius, a temperature sensor can be used to determine
+// this value.
+#define TEMP_CELSIUS    75
 
 /*
- * There are two constructors both need to be passed arguments for the
- * trigger pin and echo pin. One constructor has an additional pin for
- * the maximum CM distance used to limit the max distance that will be
- * detected.
+ * The constructors needs to be passed arguments for the trigger pin and
+ * echo pin.
  */
-Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN, MAX_CM_DISTANCE);
-//Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 bool disableSD = false;
 
-// Only run 50 time so we can reburn the code easily.
+// Only run 50 time so we can re-burn the code easily.
 #define CYCLES         50
 size_t count = 0;
 
@@ -40,7 +43,13 @@ size_t count = 0;
 void setup()
   {
   Serial.begin(9600);
-  Serial.println("Starting Ultasonic Test using standard deviation ...");
+  Serial.println("Starting Ultrasonic Test using standard deviation ...");
+  // The divisor must be a float.
+  ultrasonic.setMultiplier(MULTIPLIER);
+  // The temperature value must be in Celsius.
+  ultrasonic.setTemperature(TEMP_CELSIUS);
+  // The maximum distance that will be detected.
+  ultrasonic.setMaxDistance(MAX_CM_DISTANCE);
 
   /*
    * If NUMBER_BUFFERS is 2 then it must be followed by two size variables

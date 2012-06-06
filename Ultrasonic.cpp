@@ -38,35 +38,22 @@
 #include <Ultrasonic.h>
 
 
-Ultrasonic::Ultrasonic(int tp, int ep, int md)
-    {
-    pinMode(tp, OUTPUT);
-    pinMode(ep, INPUT);
-    _trigPin = tp;
-    _echoPin = ep;
-    _cmDivisor = 27.6233;
-    _inDivisor = 70.1633;
-    /* Don't allow a maximum distance longer than the sensor supports. */
-    _maxCMDistance = min(md, MAX_CM_DISTANCE);
-    _maxINDistance = _maxCMDistance * 0.3937; // CM to IN conversion
-    /* Why 68 and not _cmDivisor*2? There seems to be some processing overhead
-     * so a little extra is needed. 68 tests out to be correct at most
-     * distances.
-     */
-    _pingTimeout = _maxCMDistance * 68; 
-    }
-
 Ultrasonic::Ultrasonic(int tp, int ep)
     {
     pinMode(tp, OUTPUT);
     pinMode(ep, INPUT);
     _trigPin = tp;
     _echoPin = ep;
-    _cmDivisor = 27.6233;
-    _inDivisor = 70.1633;
-    _maxCMDistance = MAX_CM_DISTANCE;
-    _maxINDistance = MAX_CM_DISTANCE * 0.3937;
-    _pingTimeout = _maxCMDistance * 68;
+    _multiplier = MULTIPLIER_DEFAULT;
+    /* Don't allow a maximum distance longer than the sensor supports. */
+    _maxDistance = _MAX_CM_DISTANCE;
+    /* ***** FIX THIS *****
+     * Why 68 and not _divisor*2? There seems to be some processing overhead
+     * so a little extra is needed. 68 tests out to be correct at most
+     * distances.
+     */
+    _pingTimeout = _maxDistance * 68;
+    _temp = _TEMP_CELSIUS_DEFAULT;
     }
 
 long Ultrasonic::timing()
@@ -81,16 +68,28 @@ long Ultrasonic::timing()
 
 float Ultrasonic::convert(long microsec, int metric)
     {
-    // microsec / 29 / 2;
-    if(metric) return min(microsec / _cmDivisor / 2.0, _maxCMDistance);  // CM
-    // microsec / 74 / 2;
-    else return min(microsec / _inDivisor / 2.0, _maxINDistance);  // IN
+    // 0.5 * 331.29 * (1 + _temp/273)^0.5 * (microsec * 0.0001) * _multiplier
+    float dist = min(0.0165645 * pow(1 + _temp/273, 0.5)
+                     * microsec * _multiplier, _maxDistance);
+
+    if(metric) return dist;
+    else return dist * 0.3937;
     }
 
-void Ultrasonic::setDivisor(float value, int metric)
+void Ultrasonic::setMultiplier(float value)
     {
-    if(metric) _cmDivisor = value;
-    else _inDivisor = value;
+    _multiplier = value;
+    }
+
+void Ultrasonic::setTemperature(float value)
+    {
+    _temp = value;
+    }
+
+void Ultrasonic::setMaxDistance(int value)
+    {
+    _maxDistance = min(value, _MAX_CM_DISTANCE);
+    _pingTimeout = _maxDistance * 68;
     }
 
 #ifdef COMPILE_STD_DEV
