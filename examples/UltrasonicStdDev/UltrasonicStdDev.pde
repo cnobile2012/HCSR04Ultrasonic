@@ -44,7 +44,7 @@ void setup()
   {
   Serial.begin(9600);
   Serial.println("Starting Ultrasonic Test using standard deviation ...");
-  // The divisor must be a float.
+  // The multiplier must be a float.
   ultrasonic.setMultiplier(MULTIPLIER);
   // The temperature value must be in Celsius.
   ultrasonic.setTemperature(TEMP_CELSIUS);
