@@ -52,7 +52,7 @@ Ultrasonic::Ultrasonic(int tp, int ep)
      * so a little extra is needed. 68 tests out to be correct at most
      * distances.
      */
-    _pingTimeout = _maxDistance * 68;
+    _pingTimeout = _maxDistance * _PING_OVERHEAD;
     _temp = _TEMP_CELSIUS_DEFAULT;
     }
 
@@ -89,7 +89,7 @@ void Ultrasonic::setTemperature(float value)
 void Ultrasonic::setMaxDistance(int value)
     {
     _maxDistance = min(value, _MAX_CM_DISTANCE);
-    _pingTimeout = _maxDistance * 68;
+    _pingTimeout = _maxDistance * _PING_OVERHEAD;
     }
 
 #ifdef COMPILE_STD_DEV

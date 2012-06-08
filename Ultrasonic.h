@@ -56,6 +56,7 @@ class Ultrasonic
     static const int _MAX_CM_DISTANCE = 500;
     // Set the default temperature to 20C/68F
     static const float _TEMP_CELSIUS_DEFAULT = 20.0;
+    static const int _PING_OVERHEAD = 68;
 
 #ifdef COMPILE_STD_DEV
     bool sampleCreate(size_t size, ...);
