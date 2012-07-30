@@ -3,9 +3,9 @@
  *
  * SVN Keywords
  * ----------------------------------
- * $Author: $
- * $Date: $
- * $Revision: $
+ * $Author$
+ * $Date$
+ * $Revision$
  * ----------------------------------
  */
 
@@ -85,7 +85,7 @@ int getTemperature(void) {
 // The max distance to read.
 #define MAX_CM_DISTANCE	400
 // Set multiplier, used to correct the non-linear result from the sensor.
-#define MULTIPLIER      1.0905
+#define MULTIPLIER      1.1017    // Default to 55 CM
 
 /*
  * The constructors needs to be passed arguments for the trigger pin and
