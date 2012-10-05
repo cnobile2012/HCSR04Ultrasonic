@@ -100,7 +100,7 @@ size_t count = 0;
 
 void setup()
   {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Starting Ultrasonic Test using standard deviation ...");
   // The multiplier must be a float.
   ultrasonic.setMultiplier(MULTIPLIER);
