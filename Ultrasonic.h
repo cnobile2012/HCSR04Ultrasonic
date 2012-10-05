@@ -44,7 +44,7 @@ class Ultrasonic
     {
     public:
     Ultrasonic(int tp, int ep);
-    long timing();
+    long timing(void);
     float convert(long microsec, int metric);
     void setMultiplier(float value);
     void setTemperature(float value);
@@ -56,6 +56,11 @@ class Ultrasonic
     static const int _MAX_CM_DISTANCE = 500;
     // Set the default temperature to 20C/68F
     static const float _TEMP_CELSIUS_DEFAULT = 20.0;
+    /* ***** FIX THIS *****
+     * Why 68 and not _divisor*2? There seems to be some processing overhead
+     * so a little extra is needed. 68 tests out to be correct at most
+     * distances.
+     */
     static const int _PING_OVERHEAD = 68;
 
 #ifdef COMPILE_STD_DEV

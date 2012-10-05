@@ -11,26 +11,6 @@
  * $Date$
  * $Revision$
  * ----------------------------------
- *
- * Centimeters Divisor
- * =========== =======
- *  15.875     26.9029
- *  46.355     27.6233
- *  92.075     28.1949
- * 137.795     28.4717
- * 183.515     28.5584
- * 229.235     28.5936
- * 274.955     28.7194
- *
- * Inches      Divisor
- * ======      =======
- *   6.25      68.3333
- *  18.25      70.1633
- *  36.25      71.6152
- *  54.25      72.3182
- *  72.25      72.5384
- *  90.25      72.6277
- * 108.25      72.9473
  */
 
 #include <stdlib.h>
@@ -47,16 +27,11 @@ Ultrasonic::Ultrasonic(int tp, int ep)
     _multiplier = MULTIPLIER_DEFAULT;
     /* Don't allow a maximum distance longer than the sensor supports. */
     _maxDistance = _MAX_CM_DISTANCE;
-    /* ***** FIX THIS *****
-     * Why 68 and not _divisor*2? There seems to be some processing overhead
-     * so a little extra is needed. 68 tests out to be correct at most
-     * distances.
-     */
     _pingTimeout = _maxDistance * _PING_OVERHEAD;
     _temp = _TEMP_CELSIUS_DEFAULT;
     }
 
-long Ultrasonic::timing()
+long Ultrasonic::timing(void)
     {
     digitalWrite(_trigPin, LOW);
     delayMicroseconds(2);
