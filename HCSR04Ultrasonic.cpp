@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <Ultrasonic.h>
+#include <HCSR04Ultrasonic.h>
 
 
 Ultrasonic::Ultrasonic(int tp, int ep)
@@ -25,7 +25,7 @@ Ultrasonic::Ultrasonic(int tp, int ep)
     _trigPin = tp;
     _echoPin = ep;
     _multiplier = MULTIPLIER_DEFAULT;
-    /* Don't allow a maximum distance longer than the sensor supports. */
+    /* Don't allow a maximum distance farther than the sensor supports. */
     _maxDistance = _MAX_CM_DISTANCE;
     _pingTimeout = _maxDistance * _PING_OVERHEAD;
     _temp = _TEMP_CELSIUS_DEFAULT;
