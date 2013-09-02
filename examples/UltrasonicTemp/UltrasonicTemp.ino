@@ -9,7 +9,7 @@
  * ----------------------------------
  */
 
-#include <Ultrasonic.h>
+#include <HCSR04Ultrasonic.h>
 #include <OneWire.h>
 
 

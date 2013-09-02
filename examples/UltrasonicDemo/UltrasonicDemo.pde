@@ -9,7 +9,7 @@
  * ----------------------------------
  */
 
-#include <Ultrasonic.h>
+#include <HCSR04Ultrasonic.h>
 
 #define TRIGGER_PIN  12
 #define ECHO_PIN     13
