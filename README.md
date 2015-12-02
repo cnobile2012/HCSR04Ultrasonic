@@ -8,3 +8,8 @@ Look at the code and examples to understand how the library works. This is a rew
 The standard deviation code can be removed from the compilation resulting in a significant savings of resources. To do this comment the following line in the header file.
 
 `#define COMPILE_STD_DEV`
+
+## NOTES
+
+ 1. Two of the examples were written before Arduino changed the file extention from .pde to .ino, but should not have issues when used in newer systems.
+ 2. The Makefile is not use, as of yet, to compile the library, but to create tar and zip files and clean up backup files.
