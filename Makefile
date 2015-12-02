@@ -16,20 +16,12 @@ MAJORVERSION    = 1
 MINORVERSION    = 1
 PATCHLEVEL      = 2
 VERSION         = ${MAJORVERSION}.${MINORVERSION}.${PATCHLEVEL}
-
 DISTNAME        = ${PACKAGE_DIR}-$(VERSION)
-SVN_PATH	= /exports/nas-storage/cnobile/repos/svnroot
-REPOSITORY	= arduino-svn/HCSR04Ultrasonic
 
 #--------------------------------------------------------------
 all	: clobber
-	(cd ..; tar -czvf $(DISTNAME).tar.gz --exclude .svn $(PACKAGE_DIR))
-	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR)/* --exclude \*/.svn\*)
-
-svn-tag :
-	svn copy svn+ssh://foundation${SVN_PATH}/${REPOSITORY}/trunk \
-          svn+ssh://foundation${SVN_PATH}/${REPOSITORY}/tags/tag-${VERSION}-${TODAY} \
-          -m "Tag--release $(VERSION)."
+	(cd ..; tar -czvf $(DISTNAME).tar.gz --exclude .git $(PACKAGE_DIR))
+	(cd ..; zip -r $(DISTNAME).zip $(PACKAGE_DIR)/* --exclude \*/.git\*)
 
 #--------------------------------------------------------------
 clean	:
